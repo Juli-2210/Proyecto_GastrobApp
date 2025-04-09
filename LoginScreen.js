@@ -1,4 +1,3 @@
-// LoginScreen.js
 import React, { useState, useEffect } from 'react';
 import { 
   StyleSheet, 
@@ -9,7 +8,8 @@ import {
   Alert, 
   ActivityIndicator,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  ImageBackground
 } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
@@ -114,75 +114,81 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <ImageBackground
+      source={{ uri: "https://media.istockphoto.com/id/959262284/vector/cartoon-cute-hand-drawn-fast-food-seamless-pattern.jpg?s=612x612&w=0&k=20&c=vFFQaAumzV5TeDUlP_NsGzHh5UqeXxyFNTqVVghdwQ0=" }}
       style={styles.container}
+      resizeMode="cover"
     >
-      <View style={styles.innerContainer}>
-        {/* Aquí podrías añadir un logo */}
-        <View style={styles.logoContainer}>
-          <Text style={styles.logoText}>FirebaseAuth</Text>
-          <Text style={styles.logoSubtext}>Tutorial</Text>
-        </View>
-        
-        <Text style={styles.title}>Iniciar Sesión</Text>
-        
-        <TextInput
-          style={[styles.input, emailError ? styles.inputError : null]}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => {
-            setEmail(text);
-            if (emailError) validateEmail(text);
-          }}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-        
-        <TextInput
-          style={[styles.input, passwordError ? styles.inputError : null]}
-          placeholder="Contraseña"
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-            if (passwordError) validatePassword(text);
-          }}
-          secureTextEntry
-        />
-        {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-        
-        <TouchableOpacity 
-          style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
-          onPress={handleLogin}
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <ActivityIndicator color="white" />
-          ) : (
-            <Text style={styles.buttonText}>Iniciar Sesión</Text>
-          )}
-        </TouchableOpacity>
-        
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
-        </TouchableOpacity>
-        
-        <View style={styles.signupContainer}>
-          <Text style={styles.signupText}>¿No tienes cuenta? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={styles.signupLink}>Regístrate</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <View style={styles.innerContainer}>
+          {/* Aquí podrías añadir un logo */}
+          <View style={styles.logoContainer}>
+            <Text style={styles.logoText}>FirebaseAuth</Text>
+            <Text style={styles.logoSubtext}>Tutorial</Text>
+          </View>
+          
+          <Text style={styles.title}>Iniciar Sesión</Text>
+          
+          <TextInput
+            style={[styles.input, emailError ? styles.inputError : null]}
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              if (emailError) validateEmail(text);
+            }}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+          
+          <TextInput
+            style={[styles.input, passwordError ? styles.inputError : null]}
+            placeholder="Contraseña"
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text);
+              if (passwordError) validatePassword(text);
+            }}
+            secureTextEntry
+          />
+          {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+          
+          <TouchableOpacity 
+            style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
+            onPress={handleLogin}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <Text style={styles.buttonText}>Iniciar Sesión</Text>
+            )}
           </TouchableOpacity>
+          
+          <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+            <Text style={styles.forgotText}>¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity>
+          
+          <View style={styles.signupContainer}>
+            <Text style={styles.signupText}>¿No tienes cuenta? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <Text style={styles.signupLink}>Regístrate</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: 'transparent',
   },
   loadingContainer: {
     justifyContent: 'center',
@@ -196,6 +202,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Añadido para hacer el fondo blanco semi-transparente
+    borderRadius: 10,
   },
   logoContainer: {
     alignItems: 'center',
