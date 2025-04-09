@@ -1,4 +1,3 @@
-// RegisterScreen.js
 import React, { useState } from 'react';
 import { 
   StyleSheet, 
@@ -10,7 +9,8 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  ScrollView
+  ScrollView,
+  ImageBackground
 } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
@@ -21,13 +21,11 @@ export default function RegisterScreen({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  // Estados para errores de validación
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  // Validación del nombre
   const validateName = (name) => {
     if (!name.trim()) {
       setNameError('El nombre es obligatorio');
@@ -37,7 +35,6 @@ export default function RegisterScreen({ navigation }) {
     return true;
   };
 
-  // Validación de email
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
@@ -51,7 +48,6 @@ export default function RegisterScreen({ navigation }) {
     return true;
   };
 
-  // Validación de contraseña
   const validatePassword = (password) => {
     if (!password) {
       setPasswordError('La contraseña es obligatoria');
@@ -64,7 +60,6 @@ export default function RegisterScreen({ navigation }) {
     return true;
   };
 
-  // Validación de confirmación de contraseña
   const validateConfirmPassword = (confirmPassword) => {
     if (!confirmPassword) {
       setConfirmPasswordError('Por favor confirma tu contraseña');
@@ -78,7 +73,6 @@ export default function RegisterScreen({ navigation }) {
   };
 
   const handleRegister = () => {
-    // Validar todos los campos
     const isNameValid = validateName(name);
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -93,22 +87,18 @@ export default function RegisterScreen({ navigation }) {
     
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up 
         const user = userCredential.user;
-        
-        // Actualizar el perfil del usuario con el nombre
         return updateProfile(user, {
           displayName: name
         }).then(() => {
           Alert.alert(
-            'Registro Exitoso', 
-            '¡Tu cuenta ha sido creada correctamente!',
+            'Has sido registrado de manera exitosa', 
+            'Genial, tu cuenta ya ha sido creada!',
             [{ text: 'OK', onPress: () => navigation.replace('Home') }]
           );
         });
       })
       .catch((error) => {
-        // Traducción de errores comunes de Firebase para una mejor UX
         let errorMessage;
         switch(error.code) {
           case 'auth/email-already-in-use':
@@ -118,7 +108,7 @@ export default function RegisterScreen({ navigation }) {
             errorMessage = 'El formato del correo electrónico no es válido';
             break;
           case 'auth/weak-password':
-            errorMessage = 'La contraseña es demasiado débil';
+            errorMessage = 'La contraseña no cumple con los parametros ';
             break;
           default:
             errorMessage = error.message;
@@ -131,93 +121,99 @@ export default function RegisterScreen({ navigation }) {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
+    <ImageBackground 
+      source={{ uri: "https://img.freepik.com/free-vector/fast-food-pattern_1108-194.jpg?w=360" }} 
+      style={styles.container} 
+      resizeMode="cover"
     >
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.innerContainer}>
-          <Text style={styles.title}>Crear Cuenta</Text>
-          
-          <TextInput
-            style={[styles.input, nameError ? styles.inputError : null]}
-            placeholder="Nombre completo"
-            value={name}
-            onChangeText={(text) => {
-              setName(text);
-              if (nameError) validateName(text);
-            }}
-          />
-          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
-          
-          <TextInput
-            style={[styles.input, emailError ? styles.inputError : null]}
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text.trim());
-              if (emailError) validateEmail(text);
-            }}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-          
-          <TextInput
-            style={[styles.input, passwordError ? styles.inputError : null]}
-            placeholder="Contraseña"
-            value={password}
-            onChangeText={(text) => {
-              setPassword(text);
-              if (passwordError) validatePassword(text);
-              if (confirmPassword && confirmPasswordError) {
-                validateConfirmPassword(confirmPassword);
-              }
-            }}
-            secureTextEntry
-          />
-          {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
-          
-          <TextInput
-            style={[styles.input, confirmPasswordError ? styles.inputError : null]}
-            placeholder="Confirmar contraseña"
-            value={confirmPassword}
-            onChangeText={(text) => {
-              setConfirmPassword(text);
-              if (confirmPasswordError) validateConfirmPassword(text);
-            }}
-            secureTextEntry
-          />
-          {confirmPasswordError ? <Text style={styles.errorText}>{confirmPasswordError}</Text> : null}
-          
-          <TouchableOpacity 
-            style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
-            onPress={handleRegister}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <ActivityIndicator color="white" />
-            ) : (
-              <Text style={styles.buttonText}>Registrarse</Text>
-            )}
-          </TouchableOpacity>
-          
-          <View style={styles.loginContainer}>
-            <Text style={styles.loginText}>¿Ya tienes una cuenta? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.loginLink}>Iniciar sesión</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.innerContainer}>
+            <Text style={styles.title}>REGISTRATE!</Text>
+            
+            <TextInput
+              style={[styles.input, nameError ? styles.inputError : null]}
+              placeholder="Nombres y apellidos"
+              value={name}
+              onChangeText={(text) => {
+                setName(text);
+                if (nameError) validateName(text);
+              }}
+            />
+            {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
+            
+            <TextInput
+              style={[styles.input, emailError ? styles.inputError : null]}
+              placeholder="Correo electronico"
+              value={email}
+              onChangeText={(text) => {
+                setEmail(text.trim());
+                if (emailError) validateEmail(text);
+              }}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+            
+            <TextInput
+              style={[styles.input, passwordError ? styles.inputError : null]}
+              placeholder="Contraseña"
+              value={password}
+              onChangeText={(text) => {
+                setPassword(text);
+                if (passwordError) validatePassword(text);
+                if (confirmPassword && confirmPasswordError) {
+                  validateConfirmPassword(confirmPassword);
+                }
+              }}
+              secureTextEntry
+            />
+            {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
+            
+            <TextInput
+              style={[styles.input, confirmPasswordError ? styles.inputError : null]}
+              placeholder="Confirma tu contraseña"
+              value={confirmPassword}
+              onChangeText={(text) => {
+                setConfirmPassword(text);
+                if (confirmPasswordError) validateConfirmPassword(text);
+              }}
+              secureTextEntry
+            />
+            {confirmPasswordError ? <Text style={styles.errorText}>{confirmPasswordError}</Text> : null}
+            
+            <TouchableOpacity 
+              style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
+              onPress={handleRegister}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <ActivityIndicator color="white" />
+              ) : (
+                <Text style={styles.buttonText}>Registrarse</Text>
+              )}
             </TouchableOpacity>
+            
+            <View style={styles.loginContainer}>
+              <Text style={styles.loginText}>¿Ya tienes una cuenta? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.loginLink}>Iniciar sesión</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9fafb',
+    backgroundColor: 'transparent',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -226,15 +222,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.77)', // Fondo más suave y semi-transparente
+    borderRadius: 10,
+    width: '80%',  // Hacer el formulario más pequeño
+    alignSelf: 'center', // Centrarlo en la pantalla
+    maxWidth: 350,
+    maxHeight: 600 // Añadir un límite de ancho máximo
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 24,
     color: '#333',
+    textAlign: 'center',
   },
   input: {
-    height: 50,
+    height: 45,
     borderColor: '#d1d5db',
     borderWidth: 1,
     marginBottom: 14,

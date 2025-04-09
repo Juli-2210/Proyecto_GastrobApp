@@ -124,13 +124,11 @@ export default function LoginScreen({ navigation }) {
         style={styles.container}
       >
         <View style={styles.innerContainer}>
-          {/* Aquí podrías añadir un logo */}
           <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>FirebaseAuth</Text>
-            <Text style={styles.logoSubtext}>Tutorial</Text>
+            <Text style={styles.logoText}>GASTROBAPP</Text>
           </View>
           
-          <Text style={styles.title}>Iniciar Sesión</Text>
+          <Text style={styles.title}>Bienvenido</Text>
           
           <TextInput
             style={[styles.input, emailError ? styles.inputError : null]}
@@ -202,8 +200,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Añadido para hacer el fondo blanco semi-transparente
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo más suave y semi-transparente
     borderRadius: 10,
+    width: '50%',  // Hacer el formulario más pequeño
+    alignSelf: 'center', // Centrarlo en la pantalla
+    maxWidth: 400, // Añadir un límite de ancho máximo
+    maxHeight: 600, // Añadir un límite de altura máxima  
   },
   logoContainer: {
     alignItems: 'center',
@@ -213,19 +215,26 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#1976d2',
-  },
-  logoSubtext: {
-    fontSize: 16,
-    color: '#64748b',
-  },
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#1976d2',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },  
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 24,
     color: '#333',
+    textAlign: 'center',
   },
   input: {
-    height: 50,
+    height: 45,
     borderColor: '#d1d5db',
     borderWidth: 1,
     marginBottom: 14,
@@ -245,7 +254,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1976d2',
-    padding: 14,
+    padding: 12,
     borderRadius: 8,
     marginTop: 10,
   },
