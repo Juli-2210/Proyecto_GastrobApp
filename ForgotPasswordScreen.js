@@ -1,6 +1,14 @@
-// ForgotPasswordScreen.js
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  Alert, 
+  ActivityIndicator, 
+  ImageBackground 
+} from 'react-native';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPasswordScreen({ navigation }) {
@@ -47,50 +55,61 @@ export default function ForgotPasswordScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Recuperar Contraseña</Text>
-      <Text style={styles.subtitle}>
-        Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña
-      </Text>
+    <ImageBackground 
+      source={{ uri: "https://media.istockphoto.com/id/959262284/vector/cartoon-cute-hand-drawn-fast-food-seamless-pattern.jpg?s=612x612&w=0&k=20&c=vFFQaAumzV5TeDUlP_NsGzHh5UqeXxyFNTqVVghdwQ0=" }} 
+      style={styles.container} 
+      resizeMode="cover"
+    >
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Recuperar Contraseña</Text>
       
-      <TextInput
-        style={[styles.input, emailError ? styles.inputError : null]}
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => {
-          setEmail(text);
-          if (emailError) validateEmail(text);
-        }}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-      
-      <TouchableOpacity 
-        style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
-        onPress={handleResetPassword}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <ActivityIndicator color="white" />
-        ) : (
-          <Text style={styles.buttonText}>Enviar correo</Text>
-        )}
-      </TouchableOpacity>
-      
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.linkText}>Volver a Iniciar Sesión</Text>
-      </TouchableOpacity>
-    </View>
+        <TextInput
+          style={[styles.input, emailError ? styles.inputError : null]}
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+            if (emailError) validateEmail(text);
+          }}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+        
+        <TouchableOpacity 
+          style={[styles.button, isLoading ? styles.buttonDisabled : null]} 
+          onPress={handleResetPassword}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text style={styles.buttonText}>Recuperar Contraseña</Text>
+          )}
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.linkText}>Volver a Iniciar Sesión</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  formContainer: {
+    flex: 1,
     justifyContent: 'center',
-    padding: 16,
-    backgroundColor: '#f9fafb',
+    padding: 24,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo más suave y semi-transparente
+    borderRadius: 10,
+    width: '80%',  // Hacer el formulario más pequeño
+    alignSelf: 'center', // Centrarlo en la pantalla
+    maxWidth: 350,
+    maxHeight: 600 // Añadir un límite de ancho máximo
   },
   title: {
     fontSize: 24,
@@ -98,12 +117,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     textAlign: 'center',
     color: '#1976d2',
-  },
-  subtitle: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: 24,
-    color: '#64748b',
   },
   input: {
     height: 50,
