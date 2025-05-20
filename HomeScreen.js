@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
       });
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = () => {ñ
     navigation.replace('Home');
   };
 

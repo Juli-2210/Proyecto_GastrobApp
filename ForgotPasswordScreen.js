@@ -38,7 +38,7 @@ export default function ForgotPasswordScreen({ navigation }) {
     
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
+        
         Alert.alert(
           'Correo enviado', 
           'Se ha enviado un enlace para restablecer tu contraseña a tu correo electrónico',

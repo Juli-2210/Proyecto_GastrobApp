@@ -44,12 +44,12 @@ export default function EventsScreen({ navigation }) {
     >
       <View style={styles.container}>
 
-        {/* 🔙 Botón Home */}
+        {/*Botón Home */}
         <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('Home')}>
           <Ionicons name="home" size={24} color="white" />
         </TouchableOpacity>
 
-        {/* 📸 Cajón de galería */}
+        {/*Cajón de galería */}
         <View style={styles.galleryBox}>
           <ScrollView
             ref={scrollRef}
@@ -72,16 +72,12 @@ export default function EventsScreen({ navigation }) {
         <View style={styles.infoBox}>
           <Text style={styles.title}>GastrobApp - Eventos</Text>
           <Text style={styles.description}>
-            En GastrobApp  es una empresa en donde cocinamos con amor, y hacemos que la comida sea un arte, contamos 
-            con los mejores chefs, bartenders y meseros, para que tu evento sea un éxito. 
-            tenemos al mejor personal de servicio, muy bien capacitado y dispuesto a ayudarte en cualquier tipo de eventos,
-            contamos con servicio de menaje, decoración y todo lo necesario para que tu evento sea inolvidable.  
+            En GastrobApp  es una empresa en donde cocinamos con amor, y hacemos que la comida sea un arte, contamos con los mejores chefs, bartenders y meseros, para que tu evento sea un éxito. tenemos al mejor personal de servicio, muy bien capacitado y dispuesto a ayudarte en cualquier tipo de eventos, contamos con servicio de menaje, decoración y todo lo necesario para que tu evento sea inolvidable. 
           </Text>
         </View>
       </View>
     </ImageBackground>
-  );
-}
+  );}
 
 const styles = StyleSheet.create({
   background: {
