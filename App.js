@@ -10,11 +10,13 @@ import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import HomeScreen from './HomeScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import MenuScreen from './MenuScreen'; 
+import EventsScreen from './Events';
 
-// Importamos la configuración de Firebase
-import './firebaseConfig'; // Esto asegura que Firebase se inicialice antes de usarse
 
-// Ignorar advertencias específicas para el tutorial
+
+import './firebaseConfig';
+
 LogBox.ignoreLogs(['Setting a timer']);
 
 const Stack = createStackNavigator();
@@ -27,6 +29,8 @@ export default function App() {
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="MenuScreen" component={MenuScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Events" component={EventsScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

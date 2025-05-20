@@ -16,15 +16,13 @@ export default function HomeScreen({ navigation }) {
       });
   };
 
-  // Función para refrescar la página
   const handleRefresh = () => {
-    // Esto recarga la pantalla de Home
     navigation.replace('Home');
   };
 
   return (
     <ImageBackground
-      source={{ uri: "https://st.depositphotos.com/1813957/4984/i/450/depositphotos_49846791-stock-photo-light-blue-background-texture.jpg" }}
+      source={{ uri: "https://img.freepik.com/free-photo/black-wooden-floor_53876-89522.jpg?semt=ais_hybrid&w=740" }}
       style={styles.container}
       resizeMode="cover"
     >
@@ -40,12 +38,10 @@ export default function HomeScreen({ navigation }) {
           <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('MenuScreen')}>
             <Text style={styles.menuItemText}>Nuestro menú</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('EventsScreen')}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('Events')}>
             <Text style={styles.menuItemText}>Eventos y alquiler de personal</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('DeliveryScreen')}>
-            <Text style={styles.menuItemText}>Domicilios y reservas</Text>
-          </TouchableOpacity>
+
         </View>
 
         {/* Cerrar Sesión */}
